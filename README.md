@@ -1,6 +1,7 @@
 TODO: Add more to the title of your project here
 
-# LearningR: practicing borigness
+# LearningR: practicing R again
+>>>>>>> 3f3497f4f1b0d070ed1bb6c2fc74f47e2659c0f1
 
 This is for the DDA course
 TODO: Give a brief description of what your project is about
