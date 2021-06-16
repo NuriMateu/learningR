@@ -52,3 +52,79 @@ nhanes_small %>%
     select(phys_active) %>%
     rename(physically_active = phys_active)
 #test
+
+nhanes_small %>%
+    select(tot_chol, bp_sys_ave, poverty)
+nhanes_small %>%
+    rename(diabetes_diagnosis_age = diabetes_age)
+
+nhanes_small %>%
+    select(bmi, contains("age"))
+
+##filtering
+#filter for all females
+
+nhanes_small %>%
+    filter(sex == "female")
+
+#filter participants that are not females
+nhanes_small %>%
+    filter(sex !="female")
+
+# participants with BMI equal 25
+nhanes_small %>%
+    filter(bmi == 25)
+
+# particpants with bmi higher and equal to 25
+nhanes_small %>%
+    filter(bmi >= 25)
+
+# participants with BMI over 25 and females
+nhanes_small %>%
+    filter(bmi > 25 & sex =="female")
+
+# participants with BMI over 25 or females
+nhanes_small %>%
+    filter(bmi > 25 | sex =="female")
+
+##arrange data
+#arrange age in ascending order
+nhanes_small %>%
+    arrange(age)
+
+#arrange sex in ascending order
+nhanes_small %>%
+    arrange(sex)
+
+# Arranging data by age in descending order
+nhanes_small %>%
+    arrange(desc(age))
+
+# Arranging data by sex then age in ascending order
+nhanes_small %>%
+    arrange(sex, age)
+
+##transform or add columns
+nhanes_small %>%
+    mutate(height = height / 100)
+
+#add a new column with logged height values
+nhanes_small %>%
+    mutate(logged_height = log(height)) %>%
+    select(logged_height)
+
+#add more than one column at the samme time
+nhanes_small %>%
+    mutate(height = height / 100,
+           logged_height = log(height))
+
+#add a logic condition
+nhanes_small %>%
+    mutate(highly_active = if_else(phys_active_days >= 5, "yes", "no")) %>%
+    select(highly_active)
+
+## save to the data set
+nhanes_update <- nhanes_small %>%
+    mutate(height = height / 100,
+           logged_height = log(height),
+           highly_active = if_else(phys_active_days >= 5, "Yes", "No"))
