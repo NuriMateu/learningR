@@ -36,4 +36,45 @@ usethis::use_data(nhanes_tidied, overwrite = T)
 ggplot(nhanes_tidied, aes(x = diabetes)) +
     geom_bar()
 ```
+##plotting two variables
+
+```{r 2-continous-variables}
+bmi_chol <- ggplot(nhanes_tidied, aes(x = bmi, y = tot_chol))
+
+bmi_chol +
+    geom_hex()
+
+bmi_chol +
+    geom_smooth()
+
+bmi_chol +
+    geom_hex()
+    geom_hex()
+
+```
+```{r 2-discrete-variables}
+two_discrete <- nhanes_tidied %>% 
+    ggplot(aes(x = diabetes, fill = sex))
+
+two_discrete +
+    geom_bar()
+
+two_discrete +
+    geom_bar(position = position_dodge())
+```
+
+```{r discrete-continous-variables}
+two_mixed <- nhanes_tidied %>% 
+    ggplot(aes(x = diabetes, y = bmi))
+
+two_mixed + 
+    geom_boxplot()
+
+two_mixed +
+    geom_jitter()
+
+two_mixed +
+    geom_violin()
+
+```
 
