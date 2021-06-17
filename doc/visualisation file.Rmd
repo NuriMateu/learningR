@@ -77,4 +77,81 @@ two_mixed +
     geom_violin()
 
 ```
+# Exercise to make plots with one or two variables
+
+```{r exercise-to-make-plots}
+
+# 1a. Distribution of age
+ggplot(nhanes_tidied, aes(x = age)) +
+    geom_histogram()
+    
+# 1b. Distribution of age of diabetes diagnosis
+ggplot(nhanes_tidied, aes(x = diabetes_age)) +
+    geom_histogram()
+
+# 2a. Number of people who smoke now
+ggplot(nhanes_tidied, aes(x = smoke_now)) +
+    geom_bar()
+
+# 2b. Number of people who are physically active
+ggplot(nhanes_tidied, aes(x = phys_active)) +
+    geom_bar()
+
+# 3a. BMI in relation to systolic blood pressure
+ggplot(nhanes_tidied, aes(x = bmi, y = bp_sys_ave)) +
+    geom_hex()
+
+# 3b. BMI relation to diastolic blood pressure
+ggplot(nhanes_tidied, aes(x = bmi, y = bp_dia_ave)) +
+    geom_hex()
+    
+# 4. Physically active people with or without diabetes
+ggplot(nhanes_tidied, aes(x = diabetes, fill = phys_active)) +
+    geom_bar(position = position_dodge())
+
+# 5. Poverty levels between those with or without diabetes
+ggplot(nhanes_tidied, aes(x = diabetes, y = poverty)) +
+    geom_violin()
+
+```
+# ploting three or more variables
+```{r using-colour}
+# 1 continuous and 2 discrete variables. Plot systolic blood pressure in relation to sex and diabetes status
+nhanes_tidied %>% 
+    ggplot(aes(x = sex, y = bp_sys_ave, colour = diabetes)) +
+    geom_boxplot()
+
+# 3 continous variables. Plot BMI in relation to systolic blood pressure and age
+nhanes_tidied %>%
+    ggplot(aes(x = bmi, y = bp_sys_ave, colour = age)) +
+    geom_point()
+
+# 2 continuous and 1 discrete variables. Plot BMI in relation to systolic blood pressure and diabetes status
+nhanes_tidied %>% 
+    ggplot(aes(x = bmi, y = bp_sys_ave, colour = diabetes)) +
+    geom_point()
+
+```
+```{r using-faceting}
+# Plot BMI in relation to systolic blood pressure and diabetes status using
+# faceting by column
+nhanes_tidied %>% 
+    ggplot(aes(x = bmi, y = bp_sys_ave)) +
+    geom_point() +
+    facet_grid(cols = vars(diabetes))
+
+# faceting by row
+nhanes_tidied %>% 
+    ggplot(aes(x = bmi, y = bp_sys_ave)) +
+    geom_point() +
+    facet_grid(rows = vars(diabetes))
+
+# 5 variables. Plot BMI in relation to systolic blood pressure, age, sex and diabetes status
+nhanes_tidied %>% 
+    ggplot(aes(x = bmi, y = bp_sys_ave, colour = age)) +
+    geom_point() +
+    facet_grid(rows = vars(diabetes),
+               cols = vars(sex))
+
+```
 
