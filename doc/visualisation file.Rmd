@@ -1,0 +1,39 @@
+---
+title: "Data visualisation"
+author: "Nuri Mateu"
+date: "17/6/2021"
+output: html_document
+---
+```{r setup}
+#load packages
+source(here::here("R/package-loading.R"))
+
+#load the tiddied dataset
+load(here::here("data/nhanes_small.rda"))
+```
+#one variable plots
+```{r continous-variables}
+ggplot(nhanes_small, aes(x = bmi)) +
+    geom_density()
+ggplot(nhanes_small, aes(x = bmi)) +
+    geom_histogram()
+```
+
+
+```{r discrete-variables}
+ggplot(nhanes_small, aes(x = sex)) +
+    geom_bar()
+
+ggplot(nhanes_small, aes(x = diabetes)) +
+    geom_bar()
+
+```
+```{r remove-missing-diabetes}
+nhanes_tidied <- nhanes_small %>% 
+    filter(!is.na(diabetes))
+usethis::use_data(nhanes_tidied, overwrite = T)
+
+ggplot(nhanes_tidied, aes(x = diabetes)) +
+    geom_bar()
+```
+

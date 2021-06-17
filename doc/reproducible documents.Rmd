@@ -1,0 +1,27 @@
+---
+title: "Reproducible documents"
+output: html_document
+---
+```{r}
+2 + 2
+```
+```{r setup, include=FALSE}
+source(here::here("R/package-loading.R"))
+load(here::here("data/nhanes_small.rda"))
+
+```
+```{r}
+nhanes_small
+```
+
+```{r mean-age-bmi-table}
+nhanes_small %>%
+    filter(!is.na(diabetes)) %>%
+    group_by(diabetes, sex) %>%
+    summarise(mean_age = mean(age, na.rm = TRUE),
+              mean_bmi = mean(bmi, na.rm = TRUE)) %>%
+ungroup() %>% 
+    knitr::kable(caption = "Table 1. Mean Age and BMI")
+
+```
+
